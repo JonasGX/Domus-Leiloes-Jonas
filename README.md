@@ -2,6 +2,7 @@
 
 Projeto da faculdade Impacta - Desenvolvendo uma página Web real relacionado a leilão, 
 chamada Domus para a matéria de Ambiente de Desenvolvimento e Operação - DevOps  - Professor Goya :)
+
 Nome do Projeto: Domus
 
 Descrição do Projeto: A Domus será uma plataforma digital segura e transparente de leilões.
