@@ -22,10 +22,51 @@
 </head>
 
 <body>
+  <script>
+    function enviaMsg() {
+      const xhttp = new XMLHttpRequest();// instanciando o objeto
+    
+      xhttp.onreadystatechange = function() {
+        console.log("readyState:" + this.readyState);
+        console.log("status:" + this.status);
+        if (this.readyState == 4 && this.status == 200) {
+          imprimeResposta(this);
+        }
+      };
+    
+      xhttp.onload = function() {
+        document.getElementById("resposta").innerHTML = this.responseText;
+      };
+    
+      document.getElementById("saida").innerHTML = "mensagem enviada"; //Pega a saida e coloca a mensagem pega saida la embaixo
+    
+       // montando os dados para passar pro lambda 
+      var data = {
+        "from":document.getElementById("from").value,
+        "password":document.getElementById("password").value,
+        "confirm-password":document.getElementById("confirm-password").value};
+    
+        // converte os dados acima em json
+      var jsondata = JSON.stringify(data);
+      var url = "https://o1mv5k59cc.execute-api.us-east-1.amazonaws.com/VersaoCadastro1"; //Colocando a url do amazon api gatewey
+      xhttp.open("POST", url);
+      xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhttp.send(jsondata);
+    }
+    
+    function imprimeResposta(xml) {
+      var xmlDoc = xml.responseXML;
+      document.getElementById("resposta").innerHTML = xmlDoc;
+    }
+    </script>
+    
+
+
   <section class="container colunas">
     <!-- Div da parte esquerda-->
 
     <!-- Div da parte esquerda-->
+  
     <div class="page-intro-content">
       <div class="card-login">
 
@@ -37,22 +78,31 @@
         <div>
           <form class="form-login" action="">
             <div class="field">
-              <label for="new-username">Usuário:</label>
-              <input id="new-username" type="text">
+              <label for="from">Usuário:</label>
+              <input id="from" type="text">
             </div>
 
             <div class="field">
-              <label for="new-password">Senha:</label>
-              <input id="new-password" type="password">
+              <label for="password">Senha:</label>
+              <input id="password" type="password">
             </div>
 
             <div class="field">
-              <label for="new-password">Confirme sua senha:</label>
-              <input id="new-password" type="password">
+              <label for="confirm-password">Confirme sua senha:</label>
+              <input id="confirm-password" type="password">
             </div>
-
+            
+            <!-- Mensagem que vai mudar com id saida -->
+            <p id="saida" class="sair" style="color: white;">Envia ao pressionar o botão</p>
+            <br>
+            
+            <!--Vai sair a resposta se deu certo colocar o banco de dados ou nao-->
+            <span style="color: white; font-size: 10px; text-align: center;" id="resposta"></span>
+            <br>
+            <br>
+            <!-- Vai enviar para o DynamoDB ao clicar no botão-->
             <div class="btn">
-              <a href="index.html">Cadastrar</a>
+              <button type="button" onclick="enviaMsg()">Cadastrar</button>
             </div>
           </form>
 
@@ -61,14 +111,14 @@
         <div class="extra-form">
           <p>Já possui uma conta? <a href="./login.html">Entre</a> agora!</p>
         </div>
+        
 
 
       </div>
-
+      
     </div>
     </div>
   </section>
-
 </body>
 
 </html>
