@@ -30,8 +30,55 @@
 </head>
 
 <body>
+    <!-- OwlCarousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".owl-carousel").owlCarousel();
+      });
+  
+      $('.owl-carousel').owlCarousel({
+        autoWidth: true,
+      })
+  
+      function enviaMsg() {
+        const xhttp = new XMLHttpRequest();
+      
+        xhttp.onreadystatechange = function() {
+          console.log("readyState:" + this.readyState);
+        console.log("status:" + this.status);
+      
+          if (this.readyState == 4 && this.status == 200) {
+            imprimeResposta(this);
+          }
+        };
+      
+        xhttp.onload = function() {
+          document.getElementById("resposta").innerHTML = this.responseText;
+        };
+      
+        document.getElementById("saida").innerHTML = "mensagem enviada";
+        var data = {
+        "from":document.getElementById("from").value,
+        "bid":document.getElementById("bid").value};
+        var jsondata = JSON.stringify(data);
+        var url = " https://87m8pqsxel.execute-api.us-east-1.amazonaws.com/Versao1Lances";
+        xhttp.open("POST", url);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(jsondata);
+      }
+      
+      function imprimeResposta(xml) {
+        var xmlDoc = xml.responseXML;
+        document.getElementById("resposta").innerHTML = xmlDoc;
+      }
+      </script>
+
+
 
   <main>
+    
     <header>
       <div class="logo">
         <h1 class="domus-logo">Domus Leilões</h1>
@@ -46,34 +93,51 @@
     <section class="container">
       <div class="product-view">
         <div class="product-view-img">
-          <img src="./src/assets/WhatsApp Image 2022-04-12 at 00.07.56.jpeg" alt="">
+          <img src="./src/assets/WhatsApp Image 2022-04-12 at 00.08.17.jpeg" alt="">
         </div>
 
         <div class="product-view-content">
           <div class="produto-name">
-            <h4>PS4</h4>
+            <h4>Iphone XR</h4>
           </div>
 
           <div class="produto-descricao">
-            <p class="paragrafo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dapibus orci blandit augue cursus gravida. Vivamus posuere gravida molestie. Mauris aliquam dolor sit amet sem blandit, vitae blandit urna venenatis. Maecenas auctor libero nec leo blandit, dapibus finibus dui iaculis. Nullam varius ac ante aliquam pulvinar. Pellentesque ornare, nulla ac scelerisque consectetur, est elit rutrum nisl, sit amet commodo ligula enim non lacus. Nullam mattis erat lectus, vitae scelerisque purus cursus vel. Maecenas est purus, egestas eget tempus ut, consectetur sed justo. Cras vel scelerisque nibh. Nullam semper venenatis aliquet. Nulla quis est at dui hendrerit auctor at eget nisl. Integer ornare vehicula varius. Vivamus interdum magna sed ullamcorper fermentum. Nulla vel molestie sapien, eget ultrices leo.</p>
+            <p class="paragrafo">O Apple iPhone XR é um smartphone iOS avançado e abrangente em todos os pontos de vista com algumas características excelentes. 
+              Tem uma grande tela de 6.1 polegadas com uma resolução de 1792x828 pixels que não é das mais elevadas. 
+              As funcionalidades oferecidas pelo Apple iPhone XR são muitas e inovadoras. Começando pelo LTE 4G que permite a transferência de 
+              dados e excelente navegação na internet. Enfatizamos a excelente memória interna de 256 GB mas sem a possibilidade de expansão.
+              Respeitável a câmera de 12 megapixels que permite ao Apple iPhone XR tirar fotos com uma resolução de 4608x2592 pixels e 
+              gravar vídeos em 4K a espantosa resolução de 3840x2160 pixels. Muito fino, 8.3 milímetros, o 
+              que torna o Apple iPhone XR realmente interessante.</p>
           </div>
 
           <div class="product-view-lances">
+            <form action="">
+              <label class="label-lance" for="bid">Seu lance R$</label>
+              <INPUT Type = "Text" id="bid" Name="bid" Size="20" MaxLength="50" placeholder="400,00"></INPUT>
+
+              <LABEL for="from">Usuario:</LABEL>
+              <INPUT Type = "Text" id="from" Name="from" Size="20" MaxLength="50"><BR></INPUT>
+
+              <div class="btn btn-lance">
+                <button type="button" onclick="enviaMsg()">Dar lance</button>
+              </div>
+              <br>
+              <p id="saida">Envia ao pressionar o botão</p>
+              
+              <br>
+              <br>
+
+            </form>
             <div class="lance-minimo">
               <div class="box-lance">
                 Lance minímo: R$ <span class="money">400,00</span>
               </div>
-              <form action="">
-                <label class="label-lance" for="lance">Seu lance R$</label>
-                <input id="lance" type="number" placeholder="400,00">
-
-                <div class="btn btn-lance">
-                  <button>Dar lance</button>
-                </div>
-              </form>
+              
             </div>
+            
 
-
+            <!--
             <div class="arremate">
               Arremate: R$ <span class="money">1.600,00</span>
 
@@ -81,30 +145,26 @@
                 <button id="arremate">Arrematar</button>
               </div>
               <form action="">
-            </div>
+            </div> -->
 
 
           </div>
 
 
         </div>
+        
     </section>
+    
+    <div class="resposta">
+      Resposta:
+    <br>
+    <br>
+      <span id="resposta">-------------</span>
+    </div>
 
 
   </main>
 
-  <!-- OwlCarousel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <script>
-    $(document).ready(function () {
-      $(".owl-carousel").owlCarousel();
-    });
-
-    $('.owl-carousel').owlCarousel({
-      autoWidth: true,
-    })
-  </script>
 
 
 </body>
