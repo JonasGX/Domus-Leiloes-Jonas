@@ -11,6 +11,9 @@ Nosso objetivo será ajudar pessoas a anunciarem e encontrarem diversos tipos de
 Em nossa plataforma o usuário poderá criar uma conta para leiloar ou dar lances nos produtos. 
 A plataforma contará com um menu de eventos (Leilões previstos e leilões em andamento) e outro menu de categorias.
 
+PARA ACESSAR A PÁGINA ATRAVÉS DA NUVEM EM S3 NA AWS, ACESSE O LINK: 
+    http://bucketprojetodomus.s3-website-us-east-1.amazonaws.com/welcome.html
+
 Desenvolvedores do projeto Domus Leilões:
   - Eduardo Cruz Rodrigues           - RA: 2100992
   - Gustavo Xavier Siqueira da Silva - RA: 2100135
